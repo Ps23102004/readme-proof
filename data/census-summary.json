@@ -1,0 +1,23 @@
+{
+  "date": "2026-10-27",
+  "method": "Nemotron Nano extracts the install path from each README (commands must appear verbatim); a fresh Vercel Sandbox (Ubuntu, Python 3.14, Node 24) runs it. Every flagged break was sorted by hand.",
+  "samples": [
+    { "name": "Maintained, popular CLI repos", "repos": 10, "ok": 6, "noSteps": 4, "genuineBreaks": 0 },
+    { "name": "Older but starred CLI repos, batch 1", "repos": 30, "ok": 18, "noSteps": 6, "genuineBreaks": 5 },
+    { "name": "Older but starred CLI repos, batch 2", "repos": 30, "ok": 16, "noSteps": 6, "genuineBreaks": 2 }
+  ],
+  "breaks": [
+    { "repo": "donnemartin/gitsome", "cause": "setuptools use_2to3 removed; pip install fails on Python 3.12+", "fixed": true, "rounds": 2, "usd": 0.043, "tuned": true },
+    { "repo": "archivy/archivy", "cause": "pkg_resources removed from setuptools; app crashes on import", "fixed": true, "rounds": 2, "usd": 0.02, "tuned": true },
+    { "repo": "freedmand/semantra-python", "cause": "same pkg_resources removal", "fixed": true, "rounds": 2, "usd": 0.0145, "tuned": true },
+    { "repo": "dronesploit/dronesploit", "cause": "--version unsupported; entry point fails to import", "fixed": true, "rounds": 3, "usd": 0.028, "tuned": true },
+    { "repo": "kefranabg/readme-md-generator", "cause": "npx command is `readme`, not the package name", "fixed": true, "rounds": 2, "usd": 0.032, "tuned": true },
+    { "repo": "SpiderLabs/HostHunter", "cause": "README needs Python 3.10, requirements.txt path", "fixed": true, "rounds": 2, "usd": 0.021, "tuned": false },
+    { "repo": "texturedesign/texturize", "cause": "install path misses conda/torch prerequisites", "fixed": true, "rounds": 2, "usd": 0.0281, "tuned": false }
+  ],
+  "notes": [
+    "Rates apply to older, starred CLI repos only. Maintained popular repos: 0 breaks in 6 evaluated.",
+    "5 of the 7 fixes were found on repos the loop was tuned on; the 2 fresh ones are the untuned result.",
+    "A sandbox environment limit (no sound card) was NOT counted as a README break."
+  ]
+}

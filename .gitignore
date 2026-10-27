@@ -1,0 +1,8 @@
+.env*
+node_modules
+.next
+.vercel
+next-env.d.ts
+*.tsbuildinfo
+__pycache__
+.playwright-mcp
