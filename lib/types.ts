@@ -15,8 +15,6 @@ export type Ev =
   | { type: "error"; msg: string };
 
 export const DEMOS = [
-  { id: "semantra", repo: "freedmand/semantra-python", blurb: "pipx install works, then crashes: pkg_resources is gone" },
-  { id: "archivy", repo: "archivy/archivy", blurb: "installs, then crashes: pkg_resources is gone, Flask needs older Python" },
   { id: "readme-md-generator", repo: "kefranabg/readme-md-generator", blurb: "npx command name is not the package name" },
-  { id: "gitsome", repo: "donnemartin/gitsome", blurb: "honest failure: no verified fix after 4 rounds" },
+  { id: "archivy", repo: "archivy/archivy", blurb: "installs, then crashes: pkg_resources is gone" },
 ] as const;
