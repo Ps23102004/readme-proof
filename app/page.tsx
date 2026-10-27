@@ -61,11 +61,11 @@ export default function Home() {
     const ac = (abort.current = new AbortController());
     dispatch({ type: "reset", repo: label });
     // Streams one NDJSON response into the reducer; returns the {type:"state"} line if the server wants another call.
-    async function pump(url: string, payload: unknown): Promise<{ state: unknown; next: number } | null> {
+    async function pump(url: string, payload: unknown): Promise<{ token: string; next: number } | null> {
       const res = await fetch(url, { method: "POST", body: JSON.stringify(payload), headers: { "Content-Type": "application/json" }, signal: ac.signal });
       if (!res.ok || !res.body) { dispatch({ type: "error", msg: await res.text() }); return null; }
       const reader = res.body.getReader(), dec = new TextDecoder();
-      let buf = "", cont: { state: unknown; next: number } | null = null, finished = false;
+      let buf = "", cont: { token: string; next: number } | null = null, finished = false;
       for (;;) {
         const { done, value } = await reader.read();
         if (done) break;
@@ -85,7 +85,7 @@ export default function Home() {
     try {
       if (body.demo) { await pump("/api/run", body); return; }
       let cont = await pump("/api/step", { repo: body.repo, round: 0 });
-      while (cont) cont = await pump("/api/step", { round: cont.next, state: cont.state });
+      while (cont) cont = await pump("/api/step", { round: cont.next, token: cont.token });
     } catch (e) { if ((e as Error).name !== "AbortError") dispatch({ type: "error", msg: String(e) }); }
   }
 
